@@ -12,7 +12,7 @@
 #     nixpkgs-unstable-locked.url = "github:NixOS/nixpkgs/commit_sha";
     nixpkgs-unstable-locked.url = "github:NixOS/nixpkgs/a672be65651c80d3f592a89b3945466584a22069";
     ## add to inputs
-    SumContext.url = "github:SumContext/sumtree";
+    SumContext.url = "github:SumContext/sumtree/main";
 
     home-manager = {
       url = "github:nix-community/home-manager";
