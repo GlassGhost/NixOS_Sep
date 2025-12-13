@@ -1,8 +1,10 @@
 # cd into this path:
 cd /home/owner/NixOS_Sep
 # rebuild System with:
+sudo nix-channel --update
 sudo nixos-rebuild switch --flake .#nixos
 # rebuild user packages with:
+sudo nix-channel --update
 home-manager switch --flake .#owner
 
 

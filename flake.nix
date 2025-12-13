@@ -44,6 +44,7 @@
         locked = nixpkgs-locked.legacyPackages."x86_64-linux";
         unstable = nixpkgs-unstable.legacyPackages."x86_64-linux";
         unstablelocked = nixpkgs-unstable-locked.legacyPackages."x86_64-linux";
+        inherit (inputs) SumContext;
       };
 
       modules = [
