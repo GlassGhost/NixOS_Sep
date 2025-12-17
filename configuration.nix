@@ -137,6 +137,7 @@ environment.systemPackages = with pkgs; [
     home-manager
 ######################################################################
     #basic basic bare minimum stuff
+    nh # nix helper
     bash
     curl
     openssl
@@ -146,7 +147,7 @@ environment.systemPackages = with pkgs; [
     busybox
 # run `busybox --list` before you add a command it's probably already installed
     SumContext.packages.${pkgs.system}.sumtree
-
+    dutree
 ######################################################################
     #C development
     tinycc
@@ -219,7 +220,7 @@ environment.systemPackages = with pkgs; [
 # #    hipify-perl
 # #    pypi2nix
 # #    required for lmstudio
-#     appimage-run
+    appimage-run
 # 
 # ####################locked packages that shouldn't be a security issue
 
@@ -379,6 +380,29 @@ environment.systemPackages = with pkgs; [
     #  thunderbird
     ];
   };
+
+  programs.bash.interactiveShellInit = ''
+    # --fallback gives ability to build if not connected (e.g. adding wifi after arriving to new location)
+    # (--offline builds without connecting at all)
+    build () {
+      nh -v os build ~/nix_config --fallback ;
+    }
+    update_and_build () {
+      nh -v os build --update ~/nix_config --fallback ;
+    }
+    switch () {
+      nh -v os switch ~/nix_config --fallback ; # uses hostname for flake.
+    }
+    update_and_switch () {
+      nh -v os switch --update ~/nix_config --fallback ; # uses hostname for flake.
+    }
+    boot () { # switches on boot
+      nh -v os boot ~/nix_config --fallback ;
+    }
+    update_and_boot () { # update & switch - uses hostname for flake.
+      nh -v os boot --update ~/nix_config --fallback ;
+    }
+  '';
 
   programs.firefox.enable = false; # Install firefox #better to do this manually
 #  programs.mate.mate-system-monitor.enable = false; # Install firefox #better to do this manually
