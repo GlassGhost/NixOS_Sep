@@ -148,6 +148,7 @@ environment.systemPackages = with pkgs; [
 # run `busybox --list` before you add a command it's probably already installed
     SumContext.packages.${pkgs.system}.sumtree
     dutree
+    btop
 ######################################################################
     #C development
     tinycc
@@ -190,10 +191,17 @@ environment.systemPackages = with pkgs; [
     nautilus
     gparted
     unstable.chromium
-#     ollama-vulkan
+#     unstable.n8n
+# ✔ mate-panel-with-applets-1.28.7 ⏱ 7m34s
+# ┃ │  │  │           ├─ ✔ n8n-1.119.2 ⏱ 18m26s
+    locked.n8n
+    ollama-vulkan
+    llama-cpp
     vlc
     firefox
     mate.caja
+    mate.mate-tweak
+    mate.marco
     kdePackages.konsole
     kdePackages.kate
     gedit
@@ -204,8 +212,6 @@ environment.systemPackages = with pkgs; [
     gnome-tweaks
     #atom       #fancy-text editor
     #libsForQt5.qtstyleplugin-kvantum
-    mate.mate-tweak
-    mate.marco
 
 #     jdk #openjdk to allow java -jar YourJarFileName.jar
 #     oraclejdk #not supported
@@ -381,6 +387,8 @@ environment.systemPackages = with pkgs; [
     ];
   };
 
+#       nh -v os switch --update ~/nix_config --fallback -j 4 --cores 4 ; # uses hostname for flake.
+
   programs.bash.interactiveShellInit = ''
     # --fallback gives ability to build if not connected (e.g. adding wifi after arriving to new location)
     # (--offline builds without connecting at all)
@@ -402,7 +410,13 @@ environment.systemPackages = with pkgs; [
     update_and_boot () { # update & switch - uses hostname for flake.
       nh -v os boot --update ~/nix_config --fallback ;
     }
-  '';
+    list_pkg_versions () {
+      nix-store --query --requisites /run/current-system | cat
+    }
+    list_generations () {
+      sudo nix-env --list-generations --profile /nix/var/nix/profiles/system
+    }
+  ''; #https://www.youtube.com/watch?v=ivuNYtkgU8I
 
   programs.firefox.enable = false; # Install firefox #better to do this manually
 #  programs.mate.mate-system-monitor.enable = false; # Install firefox #better to do this manually

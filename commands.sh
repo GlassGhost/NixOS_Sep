@@ -1,9 +1,16 @@
 # cd into this path:
+
+######################################################################
+# update your system with:
 cd /home/owner/NixOS_Sep
-# rebuild System with:
+sudo nix flake update
 sudo nix-channel --update
 sudo nixos-rebuild switch --flake .#nixos
+
+######################################################################
 # rebuild user packages with:
+cd /home/owner/NixOS_Sep
+sudo nix flake update
 sudo nix-channel --update
 home-manager switch --flake .#owner
 
@@ -12,9 +19,7 @@ exit
 #example output
 ######################################################################
 
-# update your system with:
 sudo nix-collect-garbage -d
-sudo nix-channel --update
 
 ######################################################################
 
